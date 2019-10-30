@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="WaterDBCondirioner:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WaterDBCondirioner_jar</output-path>
+    <root id="archive" name="WaterDBCondirioner.jar">
+      <element id="module-output" name="WaterDBCondirioner" />
+    </root>
+  </artifact>
+</component>
