@@ -58,10 +58,16 @@ public class Main {
         parameters[2] = NameCondition.toCondition(parameters[2]).trim();
 //      Serial number - we translit as SN
         parameters[3] = SerialCondition.toCondition(parameters[3]).trim();
-//      and just in case - we translit name
+//      and just in case - we translit serial as name
         parameters[3] = NameCondition.toCondition(parameters[3]).trim();
 //      District - we translit as name
         parameters[11] = NameCondition.toCondition(parameters[11]).trim();
+//        waiting to recieve the meter models list from Poliakov
+//        first we get themeter DN, then we can work with meter model
+        String[] meterDn = MeterModelList.checkDiameter(parameters[4]);
+        parameters[4] = meterDn[2];
+        parameters[5] = meterDn[1];
+//        ToDo: we have to clean the meter models and create a rule to insert correct names not sredded shit
         result = String.join(";", parameters);
         return result;
     }
