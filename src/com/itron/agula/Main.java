@@ -48,6 +48,7 @@ public class Main {
 //      Table structure is fixed so we refer to exact rows
         String result ="";
         String[] parameters = waterString.split(";",-1);
+        String[] endLine = new String[3];
 //      Oraganization name - translit as name
         parameters[1] = NameCondition.toCondition(parameters[1]).trim();
 //      Address - translit as name
@@ -62,13 +63,24 @@ public class Main {
         parameters[3] = NameCondition.toCondition(parameters[3]).trim();
 //      District - we translit as name
         parameters[11] = NameCondition.toCondition(parameters[11]).trim();
-//        waiting to recieve the meter models list from Poliakov
-//        first we get themeter DN, then we can work with meter model
+//        we put the old values for meter name and diameter in the end of line for parameters [12], [13]
+        endLine[0] = parameters[4];
+        endLine[1] = parameters[5];
         String[] meterDn = MeterModelList.checkDiameter(parameters[4]);
+//        we keep the old diameters for lines not present in list
+        if(!meterDn[0].equals("empty")) {
+            parameters[5] = meterDn[1];
+//            [14] is to mark the lines that were not present in list 0-is ok, 1-needs attention
+            endLine[2] = "0";
+        }
+        else{
+            endLine[2] = "1";
+        }
         parameters[4] = meterDn[2];
-        parameters[5] = meterDn[1];
+//        parameters[5] = meterDn[1];
+
 //        ToDo: we have to clean the meter models and create a rule to insert correct names not sredded shit
-        result = String.join(";", parameters);
+        result = String.join(";", parameters) + ";" + String.join(";", endLine);
         return result;
     }
 }

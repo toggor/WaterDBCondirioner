@@ -17,10 +17,13 @@ public class MeterModelList {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] modelNameDn = line.split(";",-1);
+//            the models entry look like:
+//            modelNameDn[0] - model written like in input from customer
+//            modelNameDn[1] - correct Dn
+//            modelNameDn[2] - correct developer name
                 models.put(modelNameDn[0].toLowerCase().trim(), modelNameDn);
             }
             reader.close();
-//            System.out.println("strings read: " + models.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,6 +33,6 @@ public class MeterModelList {
         String model = meterModel.toLowerCase().trim();
         if(models.get(model) != null) {
             return models.get(model);
-        } else return new String[]{"пусто","meter DN",meterModel};
+        } else return new String[]{"empty","meter DN",meterModel};
     }
 }
