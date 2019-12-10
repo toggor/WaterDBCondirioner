@@ -64,19 +64,22 @@ public class Main {
 //      District - we translit as name
         parameters[11] = NameCondition.toCondition(parameters[11]).trim();
 //        we put the old values for meter name and diameter in the end of line for parameters [12], [13]
-        endLine[0] = parameters[4];
-        endLine[1] = parameters[5];
+        endLine[0] = parameters[4].trim();
+        endLine[1] = parameters[5].trim();
         String[] meterDn = MeterModelList.checkDiameter(parameters[4]);
 //        we keep the old diameters for lines not present in list
         if(!meterDn[0].equals("empty")) {
-            parameters[5] = meterDn[1];
+            if(!parameters[5].isEmpty() && !parameters[5].equals("0")){
+                endLine[2] = "1";
+            }else {
+                parameters[5] = meterDn[1].trim();
 //            [14] is to mark the lines that were not present in list 0-is ok, 1-needs attention
-            endLine[2] = "0";
+                endLine[2] = "0";}
         }
         else{
             endLine[2] = "1";
         }
-        parameters[4] = meterDn[2];
+        parameters[4] = meterDn[2].trim();
 //        parameters[5] = meterDn[1];
 
 //        ToDo: we have to clean the meter models and create a rule to insert correct names not sredded shit
