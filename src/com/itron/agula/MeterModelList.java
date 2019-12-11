@@ -29,10 +29,16 @@ public class MeterModelList {
         }
     }
 
-    public static String[] checkDiameter(String meterModel){
-        String model = meterModel.toLowerCase().trim();
-        if(models.get(model) != null) {
-            return models.get(model);
-        } else return new String[]{"empty","meter DN",meterModel};
+    public static String[] checkDiameter(String meterModel, String meterDn){
+        String oldModel = meterModel.toLowerCase().trim();
+        String[] okModel = models.get(oldModel);
+        if(okModel != null) {
+            if(!okModel[1].isEmpty()){
+                return new String[]{okModel[2], okModel[1], "OK"};
+            }else {
+                return new String[]{okModel[2], meterDn, "CheckMe"};
+            }
+        }
+        else return new String[]{meterModel, meterDn, "CheckMe"};
     }
 }
