@@ -30,15 +30,26 @@ public class MeterModelList {
     }
 
     public static String[] checkDiameter(String meterModel, String meterDn){
+//        we get the meterDN and Name to check with list
         String oldModel = meterModel.toLowerCase().trim();
         String[] okModel = models.get(oldModel);
         if(okModel != null) {
             if(!okModel[1].isEmpty()){
-                return new String[]{okModel[2], okModel[1], "OK"};
+//                if model is present in list
+                if (!okModel[1].equals(meterDn)){
+//                    if ModelDN is not the same as MeterDN provided we mark for check
+                    return new String[]{okModel[2], okModel[1], "CheckMeterDN"};
+                }
+                else{
+//                    if model present and DN is the same - we say OK
+                    return new String[]{okModel[2], okModel[1], "OK"};
+                }
             }else {
-                return new String[]{okModel[2], meterDn, "CheckMe"};
+//                if model Dn is not present in list we leave initial DN and mark it for check
+                return new String[]{okModel[2], meterDn, "CheckListDn"};
             }
         }
-        else return new String[]{meterModel, meterDn, "CheckMe"};
+//        if model is not present in list we keep initial values and mark for check
+        else return new String[]{meterModel, meterDn, "CheckMeterList"};
     }
 }
